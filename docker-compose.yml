@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+  microscore.api:
+    image: ${DOCKER_REGISTRY-}microscoreapi
+    build:
+      context: .
+      dockerfile: microscore.api/Dockerfile
+      shm_size: '500m'
+    network_mode: bridge
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - "6831:6831/udp"
+      - "16686:16686"
+    network_mode: bridge
+  es01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.6.2
+    container_name: es01
+    network_mode: bridge
+    environment:
+      - discovery.type=single-node
+    ports:
+      - 9200:9200
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.6.2
+    container_name: kib01
+    network_mode: bridge
+    links:
+      - "es01"
+    ports:
+      - 5601:5601
+    environment:
+      ELASTICSEARCH_URL: http://es01:9200
+      ELASTICSEARCH_HOSTS: http://es01:9200
+networks:
+  host:
+volumes:
+  sqlserver_data:  

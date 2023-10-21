@@ -1,0 +1,19 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "microscore.api",
+      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
+      "serviceActions": {
+        "microscore.api": "StartDebugging",
+        "db": "StartWithoutDebugging",
+        "es01": "StartWithoutDebugging",
+        "hotrod": "StartWithoutDebugging",
+        "jaeger": "StartWithoutDebugging",
+        "kibana": "StartWithoutDebugging"
+      }
+    }
+  }
+}
