@@ -23,6 +23,6 @@ namespace microscore.domain.entities.Accounts
         public Guid AccountId { get; set; }
 
         [ForeignKey(nameof(AccountId))]
-        public virtual Account AccountNav { get; set; }
+        public virtual Account? AccountNav { get; set; }
     }
 }

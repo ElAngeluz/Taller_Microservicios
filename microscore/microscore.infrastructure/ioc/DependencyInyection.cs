@@ -1,14 +1,10 @@
-﻿using microscore.application.interfaces.repositories;
-using microscore.infrastructure.data.context;
+﻿using microscore.adapters.context;
+using microscore.application.interfaces.repositories;
 using microscore.infrastructure.data.repositories;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenTelemetry;
-using OpenTelemetry.Resources;
-using OpenTelemetry.Trace;
 using Serilog;
 using System.Reflection;
 
@@ -33,18 +29,21 @@ namespace microscore.infrastructure.ioc
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             // Se agregan los servicios
-            services.AddScoped<IEjemploRestRepository, EjemploRestRepository>();
+            //services.AddScoped<IEjemploRestRepository, EjemploRestRepository>();
 
-            var builderConnection = new SqlConnectionStringBuilder(configuration.GetConnectionString("ConexionBase"));
+            var builderConnection = new SqlConnectionStringBuilder(configuration.GetConnectionString("DefaultConnection"));
 
-            builderConnection.Password = "Bg123456";
-
-            services.AddDbContext<EjemploContext>(options =>
+            services.AddDbContext<MicrosContext>(options =>
             {
                 options.UseSqlServer(builderConnection.ConnectionString);
             },
             ServiceLifetime.Transient
             );
+
+            services.AddDbContextFactory<MicrosContext>(options => {
+                options.UseSqlServer(builderConnection.ConnectionString);
+            }, ServiceLifetime.Transient);
+
             services.AddHttpContextAccessor();
             return services;
         }

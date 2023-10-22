@@ -29,11 +29,11 @@ namespace microscore.domain.entities.Accounts
         public Guid ClientId { get; set; }
         [JsonIgnore]
         [ForeignKey(nameof(ClientId))]
-        public virtual Client ClientNav { get; set; }
+        public virtual Client? ClientNav { get; set; }
 
         [JsonIgnore]
         [InverseProperty(nameof(Movement.AccountNav))]
-        public ICollection<Movement> MovementsNav { get; set; }
+        public ICollection<Movement>? MovementsNav { get; set; }
 
     }
 }

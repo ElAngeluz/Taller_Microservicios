@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
+using microscore.adapters.context;
 using microscore.application.interfaces.repositories;
 using microscore.application.models.exeptions;
 using microscore.domain.entities.consultaejemplo;
-using microscore.infrastructure.data.context;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Serilog;
-using System.Linq;
 
 namespace microscore.infrastructure.data.repositories
 {
@@ -14,9 +12,9 @@ namespace microscore.infrastructure.data.repositories
     {
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
-        private readonly EjemploContext _context;
+        private readonly MicrosContext _context;
 
-        public EjemploRestRepository(IConfiguration Configuration, IMapper Mapper, EjemploContext Context)
+        public EjemploRestRepository(IConfiguration Configuration, IMapper Mapper, MicrosContext Context)
         {
             _configuration = Configuration;
             _mapper = Mapper;

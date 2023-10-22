@@ -17,7 +17,7 @@ namespace microscore.api.HealthCheck
 
         public Task<HealthCheckResult> CheckHealthAsync(
             HealthCheckContext context,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             if (StartupTaskCompleted)
             {

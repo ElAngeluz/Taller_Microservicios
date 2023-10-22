@@ -1,9 +1,9 @@
 ﻿using microscore.application.interfaces.abstractapp;
-using microscore.domain.entities.Accounts;
+using microscore.domain.entities.People;
 
 namespace microscore.application.interfaces.repositories
 {
-    public interface IAccountRepository : IGenericRepositoryAsync<Account>
+    public interface IClientRepository : IGenericRepositoryAsync<Client>
     {
     }
 }

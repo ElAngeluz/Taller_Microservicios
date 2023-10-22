@@ -3,7 +3,6 @@ using microscore.application.interfaces.repositories;
 using microscore.application.interfaces.services;
 using microscore.domain.entities.consultaejemplo;
 using Microsoft.Extensions.Configuration;
-using Serilog;
 
 namespace microscore.application.services
 {

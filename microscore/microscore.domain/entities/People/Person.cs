@@ -29,6 +29,6 @@ namespace microscore.domain.entities.People
         public string Phone { get; set; }
 
         [JsonIgnore]
-        public Client ClientNav { get; set; }
+        public Client? ClientNav { get; set; }
     }
 }

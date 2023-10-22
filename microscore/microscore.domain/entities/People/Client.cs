@@ -24,10 +24,10 @@ namespace microscore.domain.entities.People
         public Guid PersonId { get; set; }
 
         [ForeignKey(nameof(PersonId))]
-        public virtual Person PersonNav { get; set; }
+        public virtual Person? PersonNav { get; set; }
 
         [JsonIgnore]
         [InverseProperty(nameof(Account.ClientNav))]
-        public ICollection<Account> AccountsNav { get; set; }
+        public ICollection<Account>? AccountsNav { get; set; }
     }
 }
