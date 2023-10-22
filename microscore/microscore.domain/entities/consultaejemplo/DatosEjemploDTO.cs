@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace microscore.domain.entities.consultaejemplo
+﻿namespace microscore.domain.entities.consultaejemplo
 {
     public class DatosEjemploDto
     {

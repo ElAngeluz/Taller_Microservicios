@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace microscore.domain.entities.ejemplo
+﻿namespace microscore.domain.entities.ejemplo
 
 {
     public class EjemploRequest
