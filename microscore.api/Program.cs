@@ -58,30 +58,10 @@ builder.Services.AddOpenTelemetryTracing(tracerProviderBuilder =>
 
 });
 
+builder.Services.AddHealthChecks();
+
 var app = builder.Build();
 
-//app.MapHealthChecks("/health/readiness", new HealthCheckOptions
-//{
-//    AllowCachingResponses = false,
-//    ResultStatusCodes =
-//    {
-//        [HealthStatus.Healthy] = StatusCodes.Status200OK,
-//        [HealthStatus.Degraded] = StatusCodes.Status200OK,
-//        [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
-//    },
-//});
-
-//app.MapHealthChecks("/health/liveness", new HealthCheckOptions
-//{
-//    AllowCachingResponses = false,
-//    ResultStatusCodes =
-//    {
-//        [HealthStatus.Healthy] = StatusCodes.Status200OK,
-//        [HealthStatus.Degraded] = StatusCodes.Status200OK,
-//        [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
-//    },
-//    Predicate = _ => false
-//});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -93,6 +73,30 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+
+app.MapHealthChecks("/health/readiness", new HealthCheckOptions
+{
+    AllowCachingResponses = false,
+    ResultStatusCodes =
+    {
+        [HealthStatus.Healthy] = StatusCodes.Status200OK,
+        [HealthStatus.Degraded] = StatusCodes.Status200OK,
+        [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
+    },
+});
+
+app.MapHealthChecks("/health/liveness", new HealthCheckOptions
+{
+    AllowCachingResponses = false,
+    ResultStatusCodes =
+    {
+        [HealthStatus.Healthy] = StatusCodes.Status200OK,
+        [HealthStatus.Degraded] = StatusCodes.Status200OK,
+        [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
+    },
+    Predicate = _ => false
+});
 
 app.MapControllers();
 
