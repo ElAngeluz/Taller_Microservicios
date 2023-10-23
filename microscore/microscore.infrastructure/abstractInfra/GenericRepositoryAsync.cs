@@ -1,4 +1,5 @@
 ﻿using microscore.application.interfaces.abstractapp;
+using microscore.domain.entities.abstractDomain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Serilog;

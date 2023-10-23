@@ -1,4 +1,4 @@
-﻿using microscore.application.interfaces.abstractapp;
+﻿using microscore.domain.entities.abstractDomain;
 using microscore.domain.entities.Accounts;
 using System;
 using System.Collections.Generic;

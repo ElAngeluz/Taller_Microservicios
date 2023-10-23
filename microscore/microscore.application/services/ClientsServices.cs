@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using microscore.application.interfaces.repositories;
 using microscore.application.interfaces.services;
-using microscore.application.models.dtos.personas;
+using microscore.application.models.dtos.people;
 using microscore.domain.entities.People;
 using Serilog;
 

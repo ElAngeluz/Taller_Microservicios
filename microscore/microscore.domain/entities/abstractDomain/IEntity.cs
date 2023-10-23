@@ -1,4 +1,4 @@
-﻿namespace microscore.application.interfaces.abstractapp
+﻿namespace microscore.domain.entities.abstractDomain
 {
     public interface IEntity
     {

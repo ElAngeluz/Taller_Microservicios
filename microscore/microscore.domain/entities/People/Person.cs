@@ -1,4 +1,4 @@
-﻿using microscore.application.interfaces.abstractapp;
+﻿using microscore.domain.entities.abstractDomain;
 using microscore.domain.Enums;
 using System;
 using System.ComponentModel.DataAnnotations;

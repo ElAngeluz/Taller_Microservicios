@@ -1,4 +1,4 @@
-﻿using microscore.application.interfaces.abstractapp;
+﻿using microscore.domain.entities.abstractDomain;
 using microscore.domain.entities.People;
 using microscore.domain.Enums;
 using System;
@@ -11,19 +11,15 @@ namespace microscore.domain.entities.Accounts
 {
     public class Account : IEntity
     {
-        [JsonPropertyName("TipoCuenta")]
         public AccountType Type { get; set; }
         [Key]
         public Guid Id { get; set; }
 
-        [JsonPropertyName("estado")]
         public bool State { get; set; }
 
-        [JsonPropertyName("NumeroCuenta")]
         [StringLength(50)]
         public string Number { get; set; }
 
-        [JsonPropertyName("SaldoIncial")]
         [Column(TypeName = "decimal(10,5)")]
         public decimal Balance { get; set; }
 

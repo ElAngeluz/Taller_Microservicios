@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace microscore.application.models.dtos.personas
+namespace microscore.application.models.dtos.people
 {
     public class ClientDTO
     {

@@ -1,7 +1,7 @@
 ﻿using Asp.Versioning;
 using microscore.application.interfaces.services;
 using microscore.application.models.dtos;
-using microscore.application.models.dtos.personas;
+using microscore.application.models.dtos.people;
 using microscore.domain.entities.People;
 using microscore.infrastructure.data.context;
 using Microsoft.AspNetCore.Mvc;
@@ -14,12 +14,10 @@ namespace microscore.api.Controllers.v1
     [Route("/cliente")]
     public class ClientsController : BaseApiController
     {
-        private readonly MicrosContext _context;
         private readonly IClientsServices _IClientsServices;
 
-        public ClientsController(MicrosContext context, IClientsServices iClientsServices)
+        public ClientsController(IClientsServices iClientsServices)
         {
-            _context = context;
             _IClientsServices = iClientsServices;
         }
 

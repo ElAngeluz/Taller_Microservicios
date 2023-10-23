@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
-using microscore.application.models.dtos.personas;
+using microscore.application.models.dtos.accounts;
+using microscore.application.models.dtos.people;
+using microscore.domain.entities.Accounts;
 using microscore.domain.entities.People;
 
 namespace microscore.application.mappings
@@ -18,6 +20,10 @@ namespace microscore.application.mappings
                 .ForMember(dest => dest.Identification, opt => opt.MapFrom(src => src.PersonNav.Identification))
                 .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.PersonNav.Phone))
                 .ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.Password))
+                .ReverseMap();
+
+            CreateMap<Account, AccountDTO>()
+                .ForMember(dest => dest.ClientName, opt => opt.MapFrom(src => src.ClientNav.PersonNav.Name))
                 .ReverseMap();
         }
 

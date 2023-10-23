@@ -14,6 +14,7 @@ namespace microscore.application.ioc
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             services.AddScoped<IClientsServices, ClientsServices>();
+            services.AddScoped<IAccountServices, AccountServices>();
             return services;
         }
     }

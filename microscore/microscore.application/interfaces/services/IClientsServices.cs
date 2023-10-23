@@ -1,4 +1,4 @@
-﻿using microscore.application.models.dtos.personas;
+﻿using microscore.application.models.dtos.people;
 
 namespace microscore.application.interfaces.services
 {
