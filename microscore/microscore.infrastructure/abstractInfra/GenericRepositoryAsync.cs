@@ -1,30 +1,30 @@
 ﻿using microscore.application.interfaces.abstractapp;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Serilog;
 using System.Linq.Dynamic.Core;
 
-namespace microscore.infrastructure.abstracInfra
+namespace microscore.infrastructure.abstractInfra
 {
-    public class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : class
+    public class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : class, IEntity
     {
         private readonly DbContext _dbContext;
-        private readonly ILogger<GenericRepositoryAsync<T>> Logger;
 
-        public GenericRepositoryAsync(DbContext dbContext, ILogger<GenericRepositoryAsync<T>> logger)
+        public GenericRepositoryAsync(DbContext dbContext)
         {
             _dbContext = dbContext;
-            Logger = logger;
         }
 
         public virtual async Task<T> GetByIdAsync(Guid id)
         {
             try
             {
+                Log.Information("Consulta de entidad por identificacion.");
                 return await _dbContext.Set<T>().FindAsync(id);
             }
             catch (Exception Ex)
             {
-                Logger.LogCritical(Ex, "error al consultar la entidad");
+                Log.Fatal(Ex, "error al consultar la entidad");
                 throw;
             }
         }
@@ -55,32 +55,42 @@ namespace microscore.infrastructure.abstracInfra
         {
             try
             {
+                Log.Information("Se procede con el ingreso de la entidad");
+                entity.State = true;
                 await _dbContext.Set<T>().AddAsync(entity);
                 await _dbContext.SaveChangesAsync();
                 return entity;
             }
             catch (Exception Ex)
             {
-                Logger.LogCritical(Ex, "Se produjko un error al obtener todos los registros de la entidad.");
+                Log.Fatal(Ex, "Se produjo un error al obtener todos los registros de la entidad.");
                 throw;
             }
         }
 
         public async Task UpdateAsync(T entity)
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;
+            Log.Information("Se procede con el actualizacion de la entidad");
+            _dbContext.Entry(entity).State = EntityState.Detached;
             await _dbContext.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(T entity)
         {
-            _dbContext.Set<T>().Remove(entity);
-            await _dbContext.SaveChangesAsync();
+            Log.Information("Se procede con la eliminacion de la entidad");
+            entity.State = false;
+            await UpdateAsync(entity);
         }
 
-        public virtual async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync(bool state = true)
         {
-            return await _dbContext
+            Log.Information("Se procede con la consulta de las entidades.");
+
+            return state ? await _dbContext
+                 .Set<T>()
+                 .Where(c => c.State == state)
+                 .ToListAsync()
+                 : await _dbContext
                  .Set<T>()
                  .ToListAsync();
         }

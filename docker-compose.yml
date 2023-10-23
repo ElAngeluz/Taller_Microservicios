@@ -8,6 +8,8 @@ services:
       dockerfile: microscore.api/Dockerfile
       shm_size: '500m'
     network_mode: bridge
+    ports:
+      - "56119:80"
   jaeger:
     image: jaegertracing/all-in-one:latest
     ports:

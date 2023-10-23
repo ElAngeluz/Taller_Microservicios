@@ -1,4 +1,5 @@
-﻿using microscore.domain.entities.People;
+﻿using microscore.application.interfaces.abstractapp;
+using microscore.domain.entities.People;
 using microscore.domain.Enums;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Text.Json.Serialization;
 
 namespace microscore.domain.entities.Accounts
 {
-    public class Account
+    public class Account : IEntity
     {
         [JsonPropertyName("TipoCuenta")]
         public AccountType Type { get; set; }

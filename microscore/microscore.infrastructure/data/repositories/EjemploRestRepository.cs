@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using microscore.adapters.context;
 using microscore.application.interfaces.repositories;
 using microscore.application.models.exeptions;
 using microscore.domain.entities.consultaejemplo;
+using microscore.infrastructure.data.context;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 

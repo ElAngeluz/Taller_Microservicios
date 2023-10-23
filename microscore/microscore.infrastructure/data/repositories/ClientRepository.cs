@@ -1,25 +1,31 @@
-﻿using microscore.adapters.context;
-using microscore.application.interfaces.repositories;
+﻿using microscore.application.interfaces.repositories;
 using microscore.domain.entities.People;
-using microscore.infrastructure.abstracInfra;
+using microscore.infrastructure.abstractInfra;
+using microscore.infrastructure.data.context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace microscore.infrastructure.data.repositories
 {
     public class ClientRepository : GenericRepositoryAsync<Client>, IClientRepository
     {
-        private readonly ILogger _logger;
         private readonly MicrosContext _dbContext;
-        public ClientRepository(MicrosContext dbContext, ILogger<ClientRepository> logger) : base(dbContext, logger)
+        public ClientRepository(MicrosContext dbContext) : base(dbContext)
         {
             _dbContext = dbContext;
-            _logger = logger;
         }
 
-        public override async Task<IEnumerable<Client>> GetAllAsync()
+        public override async Task<IEnumerable<Client>> GetAllAsync(bool status = true)
         {
-            return await _dbContext.Client
+            
+            return status ? await _dbContext.Client
+                .Include(c => c.PersonNav)
+                .Include(c => c.AccountsNav)
+                .Where(c => c.State == status)
+                .AsNoTracking()
+                .ToListAsync() :
+                await _dbContext.Client
                 .Include(c => c.PersonNav)
                 .Include(c => c.AccountsNav)
                 .AsNoTracking()
@@ -34,12 +40,5 @@ namespace microscore.infrastructure.data.repositories
                 .FirstAsync(c => c.ClientId == id);
         }
 
-        public async Task<Client> GetByIdAsync(string id)
-        {
-            return await _dbContext.Client
-                .Include(c => c.PersonNav)
-                .Include(c => c.AccountsNav)
-                .FirstAsync(c => c.PersonNav.Identification == id);
-        }
     }
 }

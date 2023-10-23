@@ -76,16 +76,16 @@ namespace microscore.infrastructure.extentions
 
                     MsDtoResponseError _response = new MsDtoResponseError
                     {
-                        code = _code,
-                        message = _message,
-                        errors = new List<MsDtoError> {
+                        Code = _code,
+                        Message = _message,
+                        Errors = new List<MsDtoError> {
                             new MsDtoError
                             {
-                            code = _codeAPP == 0 ? _code : _codeAPP,
-                            message = _stackTrace ??= _message
+                            Code = _codeAPP == 0 ? _code : _codeAPP,
+                            Message = _stackTrace ??= _message
                             }
                         },
-                        traceid = context?.TraceIdentifier == null ? "no-traceid" : context?.TraceIdentifier.Split(":")[0].ToLower()
+                        Traceid = context?.TraceIdentifier == null ? "no-traceid" : context?.TraceIdentifier
                     };
 
                     Log.Error("{Proceso} {errorCode} {errorMessage}", "ExceptionHandler", context.Response.StatusCode, _message);

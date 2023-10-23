@@ -1,14 +1,14 @@
-﻿using microscore.adapters.context;
-using microscore.application.interfaces.repositories;
+﻿using microscore.application.interfaces.repositories;
 using microscore.domain.entities.People;
-using microscore.infrastructure.abstracInfra;
+using microscore.infrastructure.abstractInfra;
+using microscore.infrastructure.data.context;
 using Microsoft.Extensions.Logging;
 
 namespace microscore.infrastructure.data.repositories
 {
     public class PersonRepository : GenericRepositoryAsync<Person>, IPersonRepository
     {
-        public PersonRepository(MicrosContext dbContext, ILogger<PersonRepository> Logger) : base(dbContext, Logger)
+        public PersonRepository(MicrosContext dbContext) : base(dbContext)
         {
         }
     }

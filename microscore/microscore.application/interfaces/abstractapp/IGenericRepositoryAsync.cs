@@ -4,7 +4,7 @@
     {
         Task<T> GetByIdAsync(Guid id);
 
-        Task<IEnumerable<T>> GetAllAsync();
+        Task<IEnumerable<T>> GetAllAsync(bool state = true);
 
         Task<IEnumerable<T>> GetPagedReponseAsync(int pageNumber, int pageSize);
 

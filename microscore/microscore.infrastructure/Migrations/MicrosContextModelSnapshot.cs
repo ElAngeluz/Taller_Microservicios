@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using microscore.adapters.context;
+using microscore.infrastructure.data.context;
 
 #nullable disable
 
@@ -66,6 +66,9 @@ namespace microscore.infrastructure.Migrations
 
                     b.Property<int>("MovementType")
                         .HasColumnType("int");
+
+                    b.Property<bool>("State")
+                        .HasColumnType("bit");
 
                     b.Property<decimal>("Value")
                         .HasColumnType("decimal(10,5)");
@@ -133,6 +136,9 @@ namespace microscore.infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
+
+                    b.Property<bool>("State")
+                        .HasColumnType("bit");
 
                     b.Property<long>("YearsOld")
                         .HasColumnType("bigint");

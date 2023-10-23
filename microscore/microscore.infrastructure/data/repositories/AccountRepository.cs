@@ -1,7 +1,7 @@
-﻿using microscore.adapters.context;
-using microscore.application.interfaces.repositories;
+﻿using microscore.application.interfaces.repositories;
 using microscore.domain.entities.Accounts;
-using microscore.infrastructure.abstracInfra;
+using microscore.infrastructure.abstractInfra;
+using microscore.infrastructure.data.context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -9,15 +9,13 @@ namespace microscore.infrastructure.data.repositories
 {
     public class AccountRepository : GenericRepositoryAsync<Account>, IAccountRepository
     {
-        private readonly ILogger<AccountRepository> _logger;
         public readonly MicrosContext _dbContext;
-        public AccountRepository(MicrosContext dbContext, ILogger<AccountRepository> Logger) : base(dbContext, Logger)
+        public AccountRepository(MicrosContext dbContext) : base(dbContext)
         {
-            _logger = Logger;
             _dbContext = dbContext;
         }
 
-        public override async Task<IEnumerable<Account>> GetAllAsync() =>
+        public override async Task<IEnumerable<Account>> GetAllAsync(bool status = true) =>
             await _dbContext.Account
                         .Include(c => c.ClientNav)
                             .ThenInclude(t => t.PersonNav)

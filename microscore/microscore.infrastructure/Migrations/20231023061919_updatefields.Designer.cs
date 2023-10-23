@@ -12,8 +12,8 @@ using microscore.infrastructure.data.context;
 namespace microscore.infrastructure.Migrations
 {
     [DbContext(typeof(MicrosContext))]
-    [Migration("20231022193727_InitDB")]
-    partial class InitDB
+    [Migration("20231023061919_updatefields")]
+    partial class updatefields
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -68,6 +68,9 @@ namespace microscore.infrastructure.Migrations
 
                     b.Property<int>("MovementType")
                         .HasColumnType("int");
+
+                    b.Property<bool>("State")
+                        .HasColumnType("bit");
 
                     b.Property<decimal>("Value")
                         .HasColumnType("decimal(10,5)");
@@ -135,6 +138,9 @@ namespace microscore.infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
+
+                    b.Property<bool>("State")
+                        .HasColumnType("bit");
 
                     b.Property<long>("YearsOld")
                         .HasColumnType("bigint");

@@ -7,5 +7,6 @@ namespace microscore.api.Controllers.v1
     [Route("/cuentas")]
     public class AccountsController : BaseApiController
     {
+
     }
 }

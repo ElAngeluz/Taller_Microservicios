@@ -1,5 +1,6 @@
 using microscore.infrastructure.extentions;
 using microscore.infrastructure.ioc;
+using microscore.application.ioc;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using OpenTelemetry.Resources;
@@ -61,6 +62,7 @@ builder.Services.AddOpenTelemetryTracing(tracerProviderBuilder =>
 });
 
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
 builder.Services.AddHealthChecks();
 
 var app = builder.Build();

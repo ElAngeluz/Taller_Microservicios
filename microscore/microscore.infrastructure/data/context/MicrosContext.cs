@@ -2,9 +2,8 @@
 using microscore.domain.entities.People;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Logging;
 
-namespace microscore.adapters.context
+namespace microscore.infrastructure.data.context
 {
     public partial class MicrosContext : DbContext
     {

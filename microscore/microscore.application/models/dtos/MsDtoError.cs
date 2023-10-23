@@ -6,12 +6,12 @@
         /// Código http.
         /// </summary>
         /// <example>400</example>
-        public int code { get; set; }
+        public int Code { get; set; }
 
         /// <summary>
         /// Mensaje de error.
         /// </summary>
         /// <example>Error Aplicativo</example>
-        public string message { get; set; }
+        public string Message { get; set; }
     }
 }

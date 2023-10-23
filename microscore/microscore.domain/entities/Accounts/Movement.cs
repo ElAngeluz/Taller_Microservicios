@@ -1,11 +1,12 @@
-﻿using microscore.domain.Enums;
+﻿using microscore.application.interfaces.abstractapp;
+using microscore.domain.Enums;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace microscore.domain.entities.Accounts
 {
-    public class Movement
+    public class Movement : IEntity
     {
         [Key]
         public Guid Id { get; set; }
@@ -24,5 +25,6 @@ namespace microscore.domain.entities.Accounts
 
         [ForeignKey(nameof(AccountId))]
         public virtual Account? AccountNav { get; set; }
+        public bool State { get; set; }
     }
 }

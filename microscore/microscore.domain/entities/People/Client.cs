@@ -1,4 +1,5 @@
-﻿using microscore.domain.entities.Accounts;
+﻿using microscore.application.interfaces.abstractapp;
+using microscore.domain.entities.Accounts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +9,7 @@ using System.Text.Json.Serialization;
 namespace microscore.domain.entities.People
 {
     [Table("cliente")]
-    public class Client
+    public class Client : IEntity
     {
         [Key]
         public Guid ClientId { get; set; }

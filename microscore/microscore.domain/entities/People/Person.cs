@@ -1,4 +1,5 @@
-﻿using microscore.domain.Enums;
+﻿using microscore.application.interfaces.abstractapp;
+using microscore.domain.Enums;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,7 +8,7 @@ using System.Text.Json.Serialization;
 namespace microscore.domain.entities.People
 {
     [Table("person")]
-    public class Person
+    public class Person : IEntity
     {
         [StringLength(100)]
         public string Name { get; set; }
@@ -23,6 +24,7 @@ namespace microscore.domain.entities.People
         public string Identification { get; set; }
 
         [StringLength(100)]
+        [JsonPropertyName("Direccion")]
         public string Address { get; set; }
 
         [StringLength(25)]
@@ -30,5 +32,6 @@ namespace microscore.domain.entities.People
 
         [JsonIgnore]
         public Client? ClientNav { get; set; }
+        public bool State { get; set; }
     }
 }

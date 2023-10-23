@@ -1,5 +1,5 @@
-﻿using microscore.adapters.context;
-using microscore.application.interfaces.repositories;
+﻿using microscore.application.interfaces.repositories;
+using microscore.infrastructure.data.context;
 using microscore.infrastructure.data.repositories;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +29,8 @@ namespace microscore.infrastructure.ioc
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             // Se agregan los servicios
-            //services.AddScoped<IEjemploRestRepository, EjemploRestRepository>();
+            services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
 
             var builderConnection = new SqlConnectionStringBuilder(configuration.GetConnectionString("DefaultConnection"));
 
@@ -40,7 +41,8 @@ namespace microscore.infrastructure.ioc
             ServiceLifetime.Transient
             );
 
-            services.AddDbContextFactory<MicrosContext>(options => {
+            services.AddDbContextFactory<MicrosContext>(options =>
+            {
                 options.UseSqlServer(builderConnection.ConnectionString);
             }, ServiceLifetime.Transient);
 

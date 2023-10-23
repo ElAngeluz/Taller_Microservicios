@@ -6,21 +6,21 @@
         /// Código http.
         /// </summary>
         /// <example>400</example>
-        public int code { get; set; }
+        public int Code { get; set; }
 
         /// <summary>
         /// Identificador de trazabilidad.
         /// </summary>
         /// <example>6ee1b7a7bcd2c7c9</example>
-        public string traceid { get; set; }
+        public string Traceid { get; set; }
 
         /// <summary>
         /// Mensaje de error.
         /// </summary>
         /// <example>Error Aplicativo</example>
-        public string message { get; set; }
+        public string Message { get; set; }
 
-        public List<MsDtoError> errors { get; set; }
+        public List<MsDtoError> Errors { get; set; }
 
     }
 }
