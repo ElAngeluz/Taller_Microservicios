@@ -17,8 +17,8 @@ namespace microscore.api.Controllers.v1
             _IAccountServices = iAccountServices;
         }
 
-        [HttpGet("buscarporcuenta")]
-        public async Task<ActionResult<MsDtoResponse<AccountDTO>>> GetAccountbyNumbers([FromHeader] string number)
+        [HttpGet("buscarporcuenta/{number}")]
+        public async Task<ActionResult<MsDtoResponse<AccountDTO>>> GetAccountbyNumbers(string number)
         {
             var result = await _IAccountServices.GetAccountByNumber(number);
             return Ok(new MsDtoResponse<AccountDTO>(result, HttpContext.TraceIdentifier));

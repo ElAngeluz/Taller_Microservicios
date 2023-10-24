@@ -10,10 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="certificado.pfx" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Asp.Versioning.Mvc" Version="6.4.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.23" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.23" />
@@ -32,12 +28,6 @@
   <ItemGroup>
     <ProjectReference Include="..\microscore.application\microscore.application.csproj" />
     <ProjectReference Include="..\microscore.infrastructure\microscore.infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="certificado.pfx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
 
 </Project>

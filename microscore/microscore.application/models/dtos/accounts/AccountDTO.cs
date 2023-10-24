@@ -6,5 +6,6 @@ namespace microscore.application.models.dtos.accounts
     {
         [JsonPropertyName("Id")]
         public Guid Id { get; set; }
+
     }
 }
