@@ -3,15 +3,13 @@ using microscore.application.interfaces.services;
 using microscore.application.models.dtos;
 using microscore.application.models.dtos.people;
 using microscore.domain.entities.People;
-using microscore.infrastructure.data.context;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace microscore.api.Controllers.v1
 {
     [ApiVersion("1.0")]
-    [Route("/cliente")]
+    [Route("/clientes")]
     public class ClientsController : BaseApiController
     {
         private readonly IClientsServices _IClientsServices;
@@ -33,7 +31,7 @@ namespace microscore.api.Controllers.v1
         [HttpGet("{id}")]
         public async Task<ActionResult<MsDtoResponse<ClientDTO>>> GetClient(Guid id)
         {
-            
+
             var client = await _IClientsServices.GetClient(id);
 
             if (client == null)
@@ -41,7 +39,7 @@ namespace microscore.api.Controllers.v1
                 return NotFound();
             }
 
-            return Ok(new MsDtoResponse<ClientDTO>(client, HttpContext.TraceIdentifier)); 
+            return Ok(new MsDtoResponse<ClientDTO>(client, HttpContext.TraceIdentifier));
         }
 
         // PUT: api/Clients/5
@@ -79,7 +77,7 @@ namespace microscore.api.Controllers.v1
             {
                 return NotFound();
             }
-            
+
             _ = await _IClientsServices.DeleteClient(id);
 
             return NoContent();

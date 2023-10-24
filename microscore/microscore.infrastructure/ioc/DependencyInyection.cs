@@ -3,6 +3,8 @@ using microscore.infrastructure.data.context;
 using microscore.infrastructure.data.repositories;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -31,6 +33,7 @@ namespace microscore.infrastructure.ioc
             // Se agregan los servicios
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
 
             var builderConnection = new SqlConnectionStringBuilder(configuration.GetConnectionString("DefaultConnection"));
 
@@ -45,6 +48,19 @@ namespace microscore.infrastructure.ioc
             {
                 options.UseSqlServer(builderConnection.ConnectionString);
             }, ServiceLifetime.Transient);
+
+            var options = new DbContextOptionsBuilder<MicrosContext>()
+            .UseSqlServer(builderConnection.ConnectionString)
+            .Options;
+
+            using (var context = new MicrosContext(options))
+            {
+                var migrator = context.Database.GetService<IMigrator>();
+                var generator = context.Database.GetService<IMigrationsSqlGenerator>();
+                var sql = migrator.GenerateScript();
+
+                File.WriteAllText("../../BaseDatos.sql", sql);
+            }
 
             services.AddHttpContextAccessor();
             return services;

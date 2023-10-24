@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "microscore.domain", "micros
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "microscore.infrastructure", "microscore\microscore.infrastructure\microscore.infrastructure.csproj", "{5FFFC818-8EC7-431B-A049-8B217BA81A63}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "microscore.api", "microscore.api\microscore.api.csproj", "{1DA851CE-8984-4CF2-B211-EB325AAE3E2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "microscore.api", "microscore\microscore.api\microscore.api.csproj", "{1DA851CE-8984-4CF2-B211-EB325AAE3E2C}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{59CBD352-034A-49CE-8BBA-B83C8C184173}"
 EndProject

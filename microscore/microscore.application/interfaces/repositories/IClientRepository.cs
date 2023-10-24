@@ -5,5 +5,6 @@ namespace microscore.application.interfaces.repositories
 {
     public interface IClientRepository : IGenericRepositoryAsync<Client>
     {
+        Task<Client> GetClientByName(string name);
     }
 }

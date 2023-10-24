@@ -9,6 +9,7 @@ namespace microscore.domain.entities.Accounts
     public class Movement : IEntity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
         public DateTime Date { get; set; }

@@ -12,7 +12,9 @@ namespace microscore.domain.entities.Accounts
     public class Account : IEntity
     {
         public AccountType Type { get; set; }
+
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
         public bool State { get; set; }
@@ -26,7 +28,7 @@ namespace microscore.domain.entities.Accounts
         public Guid ClientId { get; set; }
         [JsonIgnore]
         [ForeignKey(nameof(ClientId))]
-        public virtual Client? ClientNav { get; set; }
+        public virtual Client? ClientNav { get; set; } = new Client();
 
         [JsonIgnore]
         [InverseProperty(nameof(Movement.AccountNav))]

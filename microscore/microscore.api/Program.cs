@@ -1,21 +1,112 @@
-using microscore.api;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
+using microscore.api.Extentions;
+using microscore.application.ioc;
+using microscore.infrastructure.extentions;
+using microscore.infrastructure.ioc;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 
-namespace bg.micros.core.contratos
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+_ = int.TryParse(builder.Configuration["Jaeger:Telemetry:Port"], out int portNumber);
+
+//services.AddControllers();
+
+builder.Services.AddOpenTelemetryTracing(tracerProviderBuilder =>
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+    tracerProviderBuilder
+    .AddSource(builder.Configuration["Serilog:Properties:Application"])
+    .SetResourceBuilder(
+        ResourceBuilder.CreateDefault()
+            .AddService(serviceName: builder.Configuration["Serilog:Properties:Application"]))
+    .AddHttpClientInstrumentation()
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
+    .AddAspNetCoreInstrumentation(options =>
+    {
+
+        options.Enrich = (activity, eventName, rawObject) =>
+        {
+
+            string? traceid = string.Empty;
+
+            if (rawObject is HttpRequest httpRequest)
+            {
+                traceid = httpRequest.HttpContext?.TraceIdentifier;
+                activity.SetTag("Log-Traceid", traceid);
+            }
+
+        };
+    })
+    .AddSqlClientInstrumentation(options =>
+    {
+        options.EnableConnectionLevelAttributes = true;
+        options.SetDbStatementForStoredProcedure = true;
+        options.SetDbStatementForText = true;
+        options.RecordException = true;
+        options.Enrich = (activity, x, y) => activity.SetTag("db.type", "sql");
+    })
+    .AddJaegerExporter(opts =>
+    {
+        opts.AgentHost = builder.Configuration["Jaeger:Telemetry:Host"];
+        opts.AgentPort = portNumber;
+    });
+
+
+});
+
+builder.Services.RegisterDependencies();
+builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
+builder.Services.AddHealthChecks();
+
+var app = builder.Build();
+
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+
+app.ConfigureMetricServer();
+app.ConfigureExceptionHandler();
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+
+app.MapHealthChecks("/health/readiness", new HealthCheckOptions
+{
+    AllowCachingResponses = false,
+    ResultStatusCodes =
+    {
+        [HealthStatus.Healthy] = StatusCodes.Status200OK,
+        [HealthStatus.Degraded] = StatusCodes.Status200OK,
+        [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
+    },
+});
+
+app.MapHealthChecks("/health/liveness", new HealthCheckOptions
+{
+    AllowCachingResponses = false,
+    ResultStatusCodes =
+    {
+        [HealthStatus.Healthy] = StatusCodes.Status200OK,
+        [HealthStatus.Degraded] = StatusCodes.Status200OK,
+        [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
+    },
+    Predicate = _ => false
+});
+
+app.MapControllers();
+
+app.Run();

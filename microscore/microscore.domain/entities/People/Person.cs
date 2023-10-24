@@ -18,6 +18,7 @@ namespace microscore.domain.entities.People
         public uint YearsOld { get; set; }
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
         [StringLength(15)]

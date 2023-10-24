@@ -1,23 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace microscore.application.models.dtos.accounts
 {
-    public class AccountDTO
+    public class AccountDTO : AccountRequest
     {
-        [JsonPropertyName("Cuenta")]
-        public string Number { get; set; }
-        [JsonPropertyName("tipo")]
-        public string TypeAccount{ get; set; }
-        [JsonPropertyName("saldo")]
-        public decimal Balance { get; set; }
-        [JsonPropertyName("estado")]
-        public bool State { get; set; }
-        [JsonPropertyName("cliente")]
-        public string ClientName { get; set; }
+        [JsonPropertyName("Id")]
+        public Guid Id { get; set; }
     }
 }

@@ -1,9 +1,4 @@
 ﻿using microscore.application.models.dtos.accounts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace microscore.application.interfaces.services
 {
@@ -11,8 +6,9 @@ namespace microscore.application.interfaces.services
     {
         Task<AccountDTO> GetAccountByNumber(string Number);
         Task<List<AccountDTO>> GetAccountByClient(string Identification, bool OnlyActive);
-        Task<AccountDTO> CreateAccount(AccountDTO account);
-        Task<AccountDTO> UpdateAccount(AccountDTO account);
+        Task<AccountDTO> CreateAccount(AccountRequest account);
+        Task<AccountDTO> UpdateAccount(AccountRequest account);
         Task<AccountDTO> DeleteAccount(Guid Id);
+        Task<AccountDTO> GetAccountByID(Guid Id);
     }
 }

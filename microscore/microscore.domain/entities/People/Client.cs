@@ -12,23 +12,22 @@ namespace microscore.domain.entities.People
     public class Client : IEntity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid ClientId { get; set; }
 
-        [JsonPropertyName("Clave")]
         [StringLength(50)]
         public string Password { get; set; }
 
-        [JsonPropertyName("Estado")]
         public bool State { get; set; }
 
-        [JsonPropertyName("PersonaId")]
         public Guid PersonId { get; set; }
 
         [ForeignKey(nameof(PersonId))]
-        public virtual Person? PersonNav { get; set; }
+        public virtual Person? PersonNav { get; set; } = new Person();
 
         [JsonIgnore]
         [InverseProperty(nameof(Account.ClientNav))]
         public ICollection<Account>? AccountsNav { get; set; }
+
     }
 }

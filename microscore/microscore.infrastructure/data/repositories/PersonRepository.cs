@@ -2,7 +2,6 @@
 using microscore.domain.entities.People;
 using microscore.infrastructure.abstractInfra;
 using microscore.infrastructure.data.context;
-using Microsoft.Extensions.Logging;
 
 namespace microscore.infrastructure.data.repositories
 {

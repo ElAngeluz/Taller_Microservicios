@@ -30,8 +30,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\microscore\microscore.application\microscore.application.csproj" />
-    <ProjectReference Include="..\microscore\microscore.infrastructure\microscore.infrastructure.csproj" />
+    <ProjectReference Include="..\microscore.application\microscore.application.csproj" />
+    <ProjectReference Include="..\microscore.infrastructure\microscore.infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

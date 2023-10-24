@@ -2,7 +2,6 @@
 using microscore.application.services;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using AutoMapper;
 
 namespace microscore.application.ioc
 {

@@ -3,7 +3,6 @@ using microscore.domain.entities.People;
 using microscore.infrastructure.abstractInfra;
 using microscore.infrastructure.data.context;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Serilog;
 
 namespace microscore.infrastructure.data.repositories
@@ -18,26 +17,60 @@ namespace microscore.infrastructure.data.repositories
 
         public override async Task<IEnumerable<Client>> GetAllAsync(bool status = true)
         {
-            
-            return status ? await _dbContext.Client
-                .Include(c => c.PersonNav)
-                .Include(c => c.AccountsNav)
-                .Where(c => c.State == status)
-                .AsNoTracking()
-                .ToListAsync() :
-                await _dbContext.Client
-                .Include(c => c.PersonNav)
-                .Include(c => c.AccountsNav)
-                .AsNoTracking()
-                .ToListAsync();
+            try
+            {
+                return status ? await _dbContext.Client
+                    .Include(c => c.PersonNav)
+                    .Include(c => c.AccountsNav)
+                    .Where(c => c.State == status)
+                    .AsNoTracking()
+                    .ToListAsync() :
+                    await _dbContext.Client
+                    .Include(c => c.PersonNav)
+                    .Include(c => c.AccountsNav)
+                    .AsNoTracking()
+                    .ToListAsync();
+            }
+            catch (Exception Ex)
+            {
+                Log.Fatal(Ex, "Se produjo un error cuando se consulta los clientes.");
+                throw;
+            }
         }
 
         public override async Task<Client> GetByIdAsync(Guid id)
         {
-            return await _dbContext.Client
+
+            try
+            {
+                return await _dbContext.Client
+                   .Include(c => c.PersonNav)
+                   .Include(c => c.AccountsNav)
+                   .AsNoTracking()
+                   .FirstAsync(c => c.ClientId == id);
+            }
+            catch (Exception Ex)
+            {
+                Log.Fatal(Ex, "Se produjo un error cuando se consulta el cliente por Id.");
+                throw;
+            }
+        }
+
+        public async Task<Client> GetClientByName(string name)
+        {
+            try
+            {
+                return await _dbContext.Client
                 .Include(c => c.PersonNav)
                 .Include(c => c.AccountsNav)
-                .FirstAsync(c => c.ClientId == id);
+                .AsNoTracking()
+                .Where(c => c.PersonNav.Name.Contains(name)).FirstAsync();
+            }
+            catch (Exception Ex)
+            {
+                Log.Fatal(Ex, "Se produjo un error cuando se consulta el cliente por nombre.");
+                throw;
+            }
         }
 
     }

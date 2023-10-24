@@ -53,7 +53,7 @@ namespace microscore.application.services
             {
                 Log.Fatal(Ex, $"Error al consultar todos los clientes con estado: {state}");
                 throw;
-            }            
+            }
         }
 
         public async Task<ClientDTO> GetClient(Guid Id)

@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace microscore.api.Controllers
 {
     [ApiController]
-    public abstract class BaseApiController : ControllerBase
+    [Route("/api")]
+    public class BaseApiController : ControllerBase
     {
     }
 }
