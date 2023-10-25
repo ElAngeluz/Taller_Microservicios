@@ -74,7 +74,7 @@ namespace microscore.infrastructure.extentions
                     {
                     }
 
-                    MsDtoResponseError _response = new MsDtoResponseError
+                    MsDtoResponseError _response = new()
                     {
                         Code = _code,
                         Message = _message,

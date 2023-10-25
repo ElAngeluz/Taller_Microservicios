@@ -29,7 +29,7 @@ namespace microscore.infrastructure.abstractInfra
             }
         }
 
-        public async Task<IEnumerable<T>> GetPagedReponseAsync(int pageNumber, int pageSize)
+        public virtual async Task<IEnumerable<T>> GetPagedReponseAsync(int pageNumber, int pageSize)
         {
             return await _dbContext
                 .Set<T>()
@@ -39,7 +39,7 @@ namespace microscore.infrastructure.abstractInfra
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<T>> GetPagedAdvancedReponseAsync(int pageNumber, int pageSize, string orderBy, string fields)
+        public virtual async Task<IEnumerable<T>> GetPagedAdvancedReponseAsync(int pageNumber, int pageSize, string orderBy, string fields)
         {
             return await _dbContext
                 .Set<T>()
@@ -51,7 +51,7 @@ namespace microscore.infrastructure.abstractInfra
                 .ToListAsync();
         }
 
-        public async Task<T> AddAsync(T entity)
+        public virtual async Task<T> AddAsync(T entity)
         {
             try
             {
@@ -68,14 +68,14 @@ namespace microscore.infrastructure.abstractInfra
             }
         }
 
-        public async Task UpdateAsync(T entity)
+        public virtual async Task UpdateAsync(T entity)
         {
             Log.Information("Se procede con el actualizacion de la entidad");
-            _dbContext.Entry(entity).State = EntityState.Detached;
+            _dbContext.Set<T>().Update(entity);
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(T entity)
+        public virtual async Task DeleteAsync(T entity)
         {
             Log.Information("Se procede con la eliminacion de la entidad");
             entity.State = false;

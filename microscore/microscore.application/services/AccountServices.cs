@@ -26,11 +26,15 @@ namespace microscore.application.services
         {
             try
             {
-                Account account = new();
-                account = _mapper.Map<Account>(accountReq);
                 var result = await _ClientRepository.GetClientByName(accountReq.ClientName);
+
+                AccountDTO accountDTO = new(accountReq);
+
+                Account account = new();
+                account = _mapper.Map<Account>(accountDTO);
+                account.ClientNav = null;
                 account.ClientId = result.ClientId;
-                AccountDTO accountDTO = (AccountDTO)accountReq;
+
                 accountDTO.Id = (await _IAccountRepository.AddAsync(account)).ClientId;
 
                 return accountDTO;

@@ -14,6 +14,7 @@ namespace microscore.application.ioc
 
             services.AddScoped<IClientsServices, ClientsServices>();
             services.AddScoped<IAccountServices, AccountServices>();
+            services.AddScoped<IMovementsServices, MovementsServices>();
             return services;
         }
     }

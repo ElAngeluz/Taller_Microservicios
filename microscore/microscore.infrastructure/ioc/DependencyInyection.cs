@@ -34,6 +34,7 @@ namespace microscore.infrastructure.ioc
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IMovementRepository, MovementRepository>();
 
             var builderConnection = new SqlConnectionStringBuilder(configuration.GetConnectionString("DefaultConnection"));
 

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace microscore.api.Controllers.v1
 {
     [ApiVersion("1.0")]
-    [Route("/cuentas")]
+    [Route("api/cuentas")]
     public class AccountsController : BaseApiController
     {
         private readonly IAccountServices _IAccountServices;

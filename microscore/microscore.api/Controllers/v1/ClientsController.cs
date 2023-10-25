@@ -9,7 +9,7 @@ using Serilog;
 namespace microscore.api.Controllers.v1
 {
     [ApiVersion("1.0")]
-    [Route("/clientes")]
+    [Route("api/clientes")]
     public class ClientsController : BaseApiController
     {
         private readonly IClientsServices _IClientsServices;

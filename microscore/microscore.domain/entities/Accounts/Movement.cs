@@ -26,6 +26,6 @@ namespace microscore.domain.entities.Accounts
 
         [ForeignKey(nameof(AccountId))]
         public virtual Account? AccountNav { get; set; }
-        public bool State { get; set; }
+        public bool State { get; set; } = true;
     }
 }

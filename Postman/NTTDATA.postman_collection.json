@@ -1,0 +1,190 @@
+{
+	"info": {
+		"_postman_id": "dea4a4e6-1438-4d90-80dd-a7e367ba9a0d",
+		"name": "NTTDATA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2142153"
+	},
+	"item": [
+		{
+			"name": "Clientes",
+			"item": [
+				{
+					"name": "todos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "text/plain"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:7086/api/clientes/todos?activos=true",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7086",
+							"path": [
+								"api",
+								"clientes",
+								"todos"
+							],
+							"query": [
+								{
+									"key": "activos",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todos Copy",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "text/plain"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"clienteId\": \"2E707444-89BA-4174-AB63-7DFA75C58D07\",\r\n    \"nombre\": \"Jose Lema\",\r\n    \"identificacion\": \"0921157301\",\r\n    \"direccion\": \"Otavalo sn y principas\",\r\n    \"telefono\": \"098254785\",\r\n    \"estado\": true,\r\n    \"contraseña\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7086/api/clientes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7086",
+							"path": [
+								"api",
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cuentas",
+			"item": [
+				{
+					"name": "Cuentas",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "text/plain"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"Cuenta\": \"478758\",\r\n  \"tipo\": \"Ahorro\",\r\n  \"saldo\": 2000,\r\n  \"estado\": true,\r\n  \"cliente\": \"Jose Lema\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:{{port}}/api/Cuentas",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"Cuentas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Movimientos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "text/plain"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"cuenta\": \"478758\",\r\n  \"tipo\": \"Ahorro\",\r\n  \"movimiento\": \"retiro de 100\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:{{port}}/api/movimientos",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"movimientos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reporte",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "text/plain"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:7086/api/movimientos/reporte?FechaTrasaccion=2023-10-25&NombreCliente=Jose%20Lema",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7086",
+							"path": [
+								"api",
+								"movimientos",
+								"reporte"
+							],
+							"query": [
+								{
+									"key": "FechaTrasaccion",
+									"value": "2023-10-25"
+								},
+								{
+									"key": "NombreCliente",
+									"value": "Jose%20Lema"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
