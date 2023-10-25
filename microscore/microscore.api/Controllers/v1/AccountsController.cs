@@ -20,7 +20,7 @@ namespace microscore.api.Controllers.v1
         [HttpGet("buscarporcuenta/{number}")]
         public async Task<ActionResult<MsDtoResponse<AccountDTO>>> GetAccountbyNumbers(string number)
         {
-            var result = await _IAccountServices.GetAccountByNumber(number);
+            var result = await _IAccountServices.GetAccountByNumberAsync(number);
             return Ok(new MsDtoResponse<AccountDTO>(result, HttpContext.TraceIdentifier));
         }
 
@@ -48,7 +48,7 @@ namespace microscore.api.Controllers.v1
         [HttpPut]
         public async Task<IActionResult> PutClient(AccountDTO account)
         {
-            await _IAccountServices.UpdateAccount(account);
+            await _IAccountServices.UpdateAccountAsync(account);
             return NoContent();
         }
 

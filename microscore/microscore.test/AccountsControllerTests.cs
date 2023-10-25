@@ -14,7 +14,7 @@ namespace microscore.test
         {
             // Arrange
             var mockAccountServices = new Mock<IAccountServices>();
-            mockAccountServices.Setup(s => s.GetAccountByNumber(It.IsAny<string>()))
+            mockAccountServices.Setup(s => s.GetAccountByNumberAsync(It.IsAny<string>()))
                 .ReturnsAsync(new AccountDTO()
                 {
                     Number = "478758",
@@ -39,7 +39,7 @@ namespace microscore.test
         {
             // Arrange
             var mockAccountServices = new Mock<IAccountServices>();
-            mockAccountServices.Setup(s => s.GetAccountByNumber(It.IsAny<string>()))
+            mockAccountServices.Setup(s => s.GetAccountByNumberAsync(It.IsAny<string>()))
                 .ReturnsAsync((AccountDTO)null); // Simulación de respuesta nula
             var controller = new AccountsController(mockAccountServices.Object);
 

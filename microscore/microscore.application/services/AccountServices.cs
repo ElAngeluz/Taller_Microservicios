@@ -43,9 +43,19 @@ namespace microscore.application.services
 
         }
 
-        public async Task<AccountDTO> DeleteAccount(Guid Id)
+        public async Task<bool> DeleteAccount(Guid Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var account = await _IAccountRepository.GetByIdAsync(Id);
+                _ = _IAccountRepository.DeleteAsync(account);
+                return true;
+            }
+            catch (Exception Ex)
+            {
+                Log.Fatal(Ex, "Error al eliminar la cuenta.");
+                throw;
+            }
         }
 
         public async Task<List<AccountDTO>> GetAccountByClient(string Identification, bool OnlyActive)
@@ -58,7 +68,7 @@ namespace microscore.application.services
             throw new NotImplementedException();
         }
 
-        public async Task<AccountDTO> GetAccountByNumber(string Number)
+        public async Task<AccountDTO> GetAccountByNumberAsync(string Number)
         {
             try
             {
@@ -71,9 +81,18 @@ namespace microscore.application.services
             }
         }
 
-        public async Task<AccountDTO> UpdateAccount(AccountRequest accountDTO)
+        public async Task UpdateAccountAsync(AccountDTO accountDTO)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var account = _mapper.Map<Account>(accountDTO);
+                await _IAccountRepository.UpdateAsync(account);
+            }
+            catch (Exception Ex)
+            {
+                Log.Fatal(Ex, "Se produjo un error cuando se actualizaba la cuenta del cleinte.");
+                throw;
+            }
         }
     }
 }
